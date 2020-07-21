@@ -1,0 +1,87 @@
+#
+# EASEL -- Kernel configuration file for FreeBSD/arm64 on Pixel Visual Core
+#
+# This is a minimal configuration with the bare minimum features required for
+# FreeBSD/arm64 on the Pixel Visual Core (codename Easel/Monette Hill).
+#
+# $FreeBSD$
+
+cpu		ARM64
+ident		EASEL
+
+makeoptions	DEBUG=-g		# Build kernel with gdb(1) debug symbols
+makeoptions NO_MODULES=yes
+
+options 	SCHED_ULE		# ULE scheduler
+options 	PREEMPTION		# Enable kernel thread preemption
+options 	VIMAGE			# Subsystem virtualization, e.g. VNET
+options 	INET			# InterNETworking
+options 	INET6			# IPv6 communications protocols
+options 	TCP_OFFLOAD		# TCP offload
+options		TCP_RFC7413		# TCP Fast Open
+options 	FFS			# Berkeley Fast Filesystem
+options 	SOFTUPDATES		# Enable FFS soft updates support
+options 	UFS_ACL			# Support for access control lists
+options 	UFS_DIRHASH		# Improve performance on big directories
+options 	MD_ROOT			# MD is a potential root device
+makeoptions	MFS_IMAGE=/usr/home/dragon/freebsd/out/rootfs/rootfs.img
+#options		ROOTDEVNAME=\"ufs:md0\"
+options 	PROCFS			# Process filesystem (requires PSEUDOFS)
+options 	PSEUDOFS		# Pseudo-filesystem framework
+options 	COMPAT_FREEBSD11	# Compatible with FreeBSD11
+options 	COMPAT_FREEBSD12	# Compatible with FreeBSD12
+options 	SYSVSHM			# SYSV-style shared memory
+options 	SYSVMSG			# SYSV-style message queues
+options 	SYSVSEM			# SYSV-style semaphores
+options 	_KPOSIX_PRIORITY_SCHEDULING # POSIX P1003_1B real-time extensions
+options 	PRINTF_BUFR_SIZE=128	# Prevent printf output being interspersed.
+options 	KBD_INSTALL_CDEV	# install a CDEV entry in /dev
+options 	VFP			# Floating-point support
+options 	INTRNG
+
+# Debugging support.  Always need this:
+options 	KDB			# Enable kernel debugger support.
+options 	KDB_TRACE		# Print a stack trace for a panic.
+# For full debugger support use (turn off in stable branch):
+options 	DDB			# Support DDB.
+#options 	GDB			# Support remote GDB.
+options 	ALT_BREAK_TO_DEBUGGER	# Enter debugger on keyboard escape sequence
+
+# Serial (COM) ports
+device		uart		# Generic UART driver
+device		uart_ns8250	# ns8250-type UART driver
+device		uart_snps
+device		pl011
+
+# Console
+device		vt
+device		kbdmux
+
+# Pseudo devices.
+device		crypto		# core crypto support
+device		loop		# Network loopback
+device		ether		# Ethernet support
+device		tuntap		# Packet tunnel.
+device		md		# Memory "disks"
+device		gif		# IPv6 and IPv4 tunneling
+
+# EXT_RESOURCES pseudo devices
+options 	EXT_RESOURCES
+device		clk
+device		phy
+device		hwreset
+device		regulator
+device		syscon
+
+# The `bpf' device enables the Berkeley Packet Filter.
+# Be aware of the administrative consequences of enabling this!
+# Note that 'bpf' is required for DHCP.
+device		bpf		# Berkeley packet filter
+
+options 	FDT
+
+# Dependencies for other devices
+device		gpio
+device		mdio
+
+options 	LINUX_BOOT_ABI
