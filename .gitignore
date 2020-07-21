@@ -17,6 +17,8 @@ GTAGS
 ID
 cscope.out
 ?cscope.out
+vers.c
+version
 # Ignore LINT generated configs.
 /sys/amd64/conf/LINT
 /sys/amd64/conf/LINT-NOINET
