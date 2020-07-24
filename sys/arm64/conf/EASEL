@@ -42,10 +42,6 @@ options 	INTRNG
 # Debugging support.  Always need this:
 options 	KDB			# Enable kernel debugger support.
 options 	KDB_TRACE		# Print a stack trace for a panic.
-# For full debugger support use (turn off in stable branch):
-options 	DDB			# Support DDB.
-#options 	GDB			# Support remote GDB.
-options 	ALT_BREAK_TO_DEBUGGER	# Enter debugger on keyboard escape sequence
 
 # Serial (COM) ports
 device		uart		# Generic UART driver
