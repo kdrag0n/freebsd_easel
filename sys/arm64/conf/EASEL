@@ -51,7 +51,6 @@ options 	ALT_BREAK_TO_DEBUGGER	# Enter debugger on keyboard escape sequence
 device		uart		# Generic UART driver
 device		uart_ns8250	# ns8250-type UART driver
 device		uart_snps
-device		pl011
 
 # Console
 device		vt
